@@ -30,6 +30,7 @@ function updateLocalStorage() {
 // ? Function to load from local storage. This function will be called on page load.
 function loadFromLocalStorage() {
   // TODO: Load and parse the data from local storage and paint the images and text on the mood board
+  const storedData = JSON.parse(localStorage.getItem("objectStorage"));
 
   if (storedData) {
     tempStorageObject = storedData;
@@ -65,6 +66,7 @@ addImageBtn.addEventListener('click', function () {
 addTextBtn.addEventListener('click', function () {
   const text = textInput.value;
   if (text) {
+    tempStorageObject.text.push(text);
     const textDiv = document.createElement('div');
     textDiv.classList.add('text-item', 'draggable');
     textDiv.textContent = text;
@@ -75,6 +77,7 @@ addTextBtn.addEventListener('click', function () {
 
     // ? We attach the mouse move event listener to the document and the click listener to the mood board div so that the element can be dragged anywhere on the screen, but dropped only on the mood board div.
     attachMouseListeners();
+    updateLocalStorage();
   }
 });
 
